@@ -121,7 +121,7 @@ class DirectIPHandler(socketserver.BaseRequestHandler):
                     self.logger.debug(
                         'Post-processing output: {}'.format(output.stdout))
                 except:
-                    self.logger.warn('Failed to run external post-processing')
+                    self.logger.warning('Failed to run external post-processing')
 
         elif is_outbound(self.data):
             assert self.server.outbound_address is not None, \

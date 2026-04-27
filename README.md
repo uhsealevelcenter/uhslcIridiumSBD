@@ -37,7 +37,6 @@ uhslcIridiumSBD/
 │   ├── decode/
 │   │   ├── __init__.py
 │   │   ├── cli.py               # standalone pseudobinary-C decoder CLI
-│   │   ├── decodeit.py          # legacy standalone decoder script
 │   │   └── pseudobinary_c_decoder.py
 │   ├── directip/
 │   │   ├── __init__.py

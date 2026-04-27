@@ -173,7 +173,7 @@ def process_isbd(
             raise PostProcessError("Input file is not a complete valid DirectIP ISBD message")
 
         isbd = IridiumSBD(message)
-        if not hasattr(isbd, "payload"):
+        if not hasattr(isbd, "payload") or not isbd.payload.get("data"):
             LOGGER.info("No MO payload found; moving to empty directory: %s", input_file)
             if archive:
                 _move_file(input_file, empty_dir)

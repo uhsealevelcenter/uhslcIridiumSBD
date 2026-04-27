@@ -61,3 +61,10 @@ docs/_build/
 # Dynamic docs
 docs/isbd.rst
 docs/modules.rst
+
+# Custom
+.pytest_cache/
+.DS_Store
+._*
+.__*
+.venv
