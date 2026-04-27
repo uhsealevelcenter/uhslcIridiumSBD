@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Example launcher. Adjust paths, host, and port for the deployment host.
+REPO_DIR="${REPO_DIR:-$HOME/iridiumSBD}"
+VENV_DIR="${VENV_DIR:-$REPO_DIR/.venv}"
+DATA_DIR="${DATA_DIR:-/opt/iridiumSBD/data}"
+LOG_FILE="${LOG_FILE:-/var/log/iridiumSBD/directip.log}"
+HOST="${HOST:-0.0.0.0}"
+PORT="${PORT:-10800}"
+
+source "$VENV_DIR/bin/activate"
+
+exec iridium-sbd \
+  --loglevel=info \
+  --logfile="$LOG_FILE" \
+  listen \
+  --host="$HOST" \
+  --port="$PORT" \
+  --datadir="$DATA_DIR" \
+  --post-processing="$VENV_DIR/bin/iridium-sbd-postprocess"

@@ -199,5 +199,5 @@ def runserver(host, port, datadir, postProcessing=None,
         server.serve_forever()
         module_logger.info('Server activated. To interrupt it: Ctrl-C')
     except KeyboardInterrupt:
-        module_logger.warn('User terminated server')
+        module_logger.warning('User terminated server')
         module_logger.debug('=====================')

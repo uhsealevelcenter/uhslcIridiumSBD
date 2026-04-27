@@ -17,7 +17,7 @@ import logging.handlers
 import click
 
 from iridiumSBD import dump
-from directip.server import runserver
+from iridiumSBD.directip.server import runserver
 
 
 @click.group()
@@ -74,7 +74,7 @@ def listen(host, port, datadir, postProcessing, iridiumHost, iridiumPort):
 
     if datadir == None:
         datadir = os.getcwd()
-        logger.warn('Missing --datadir. Will use current directory.')
+        logger.warning('Missing --datadir. Will use current directory.')
 
     logger.debug('Calling server.')
     if (iridiumHost is not None) and (iridiumPort is not None):
@@ -82,7 +82,7 @@ def listen(host, port, datadir, postProcessing, iridiumHost, iridiumPort):
         runserver(host, port, datadir, postProcessing,
                   outbound_address=(iridiumHost, iridiumPort))
     else:
-        logger.warn('Missing Iridium address to forward outbound messages!')
+        logger.warning('Missing Iridium address to forward outbound messages!')
         runserver(host, port, datadir, postProcessing)
 
 

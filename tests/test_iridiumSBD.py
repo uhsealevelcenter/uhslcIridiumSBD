@@ -15,6 +15,22 @@ from iridiumSBD import cli
 from iridiumSBD.directip import server
 
 
+minimal_full_msg = (
+    b'\x01'                 # protocol revision
+    b'\x00\x22'             # message length after first 3 bytes: 34
+    b'\x01'                 # MO header IEI
+    b'\x00\x1c'             # MO header length: 28
+    b'\x00\x00\x00\x01'     # CDR reference
+    b'1234567890abcde'      # IMEI
+    b'\x0c'                 # session status
+    b'\x00\x01'             # MOMSN
+    b'\x00\x00'             # MTMSN
+    b'\x00\x00\x00\x00'     # session epoch
+    b'\x02'                 # MO payload IEI
+    b'\x00\x00'             # empty payload
+)
+
+
 def test_parse_minimal_MO():
     msg = isbd.IridiumSBD(minimal_full_msg)
     
