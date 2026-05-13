@@ -90,10 +90,11 @@ class PseudobinaryCDecoder:
         """
         # Define the names of the sensors.
         sensors = ['PRS', 'RAD', 'RA2', 'RA3', 'RAS', 'ENC', 'BUB',
-                           'BAT', 'SST', 'ATM', 'PSD', 'RSD', 'PR2', 'SW1',
-                           'SW2', 'TST', 'TS2', 'TS3', 'TMA', 'WAV', 'WMX',
-                           'WDR', 'RIN', 'AT2', 'Avail', 'Avail', 'Avail',
-                           'Avail', 'Avail', 'SW1 samples', 'SW2 samples', 'PRS samples']
+                   'BAT', 'SST', 'ATM', 'PSD', 'RSD', 'PR2', 'SW1',
+                   'SW2', 'TST', 'TS2', 'TS3', 'TMA', 'WAV', 'WMX',
+                   'WDR', 'RIN', 'AT2', 'Avail', 'Avail', 'Avail',
+                   'Avail', 'Avail', 'SW1 samples', 'SW2 samples',
+                   'PRS samples']
 
         # Check if the data is missing the starting "0" and prepend it if necessary.
         if data.startswith(("C1+", "C2+", "C3+", "C4+")):
@@ -133,7 +134,8 @@ class PseudobinaryCDecoder:
 
             # Adjust the start_time to account for truncation of seconds in the pseudo-C transmitted measurement times.
             # Subtract 1 minute from the start time.
-            time_start = time_start - 1
+            if sensor not in ['SW1', 'SW2']:
+                time_start = time_start - 1
 
             # Find the start of the next block.
             next_block_start = data.find('+', 8)

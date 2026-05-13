@@ -259,6 +259,57 @@ Important distinction:
 
 ---
 
+## Pseudobinary-C sensor mapping requirements
+
+The pseudobinary-C decoder expects transmitted data to follow a fixed sensor/channel order.
+
+The Iridium payload does not include logger channel names such as `Sense1`, `Sense2`, `Stage`, `Pressure`, or `Battery`. Instead, each measurement block identifies a numbered position, and the decoder assigns a sensor name based on that position.
+
+This means the station/SatLink transmit configuration must place each logger value into the expected pseudobinary-C position. If a value is transmitted in position 1, the decoder will label it `PRS` regardless of which logger channel actually produced the value.
+
+| Transmit position | Decoder sensor name |
+|---:|---|
+| 1 | PRS |
+| 2 | RAD |
+| 3 | RA2 |
+| 4 | RA3 |
+| 5 | RAS |
+| 6 | ENC |
+| 7 | BUB |
+| 8 | BAT |
+| 9 | SST |
+| 10 | ATM |
+| 11 | PSD |
+| 12 | RSD |
+| 13 | PR2 |
+| 14 | SW1 |
+| 15 | SW2 |
+| 16 | TST |
+| 17 | TS2 |
+| 18 | TS3 |
+| 19 | TMA |
+| 20 | WAV |
+| 21 | WMX |
+| 22 | WDR |
+| 23 | RIN |
+| 24 | AT2 |
+| 25 | Avail |
+| 26 | Avail |
+| 27 | Avail |
+| 28 | Avail |
+| 29 | Avail |
+| 30 | SW1 samples |
+| 31 | SW2 samples |
+| 32 | PRS samples |
+
+The decoder does not inspect the logger configuration or infer sensor names from logger channel labels. For example, if `Sense1` is the pressure/stage value that should become `PRS`, then the SatLink transmit configuration must send `Sense1` in the `PRS` position.
+
+If a transmit position is mapped to the wrong logger channel, a missing channel, or an unavailable value, the decoder will still label the received value according to the fixed table above. Repeated or unrealistic decoded values should therefore be checked against the station/SatLink transmit mapping first.
+
+Rows for channels whose names contain `samples` are decoded internally but are not written to the standard decoded CSV output.
+
+---
+
 ## Dump a saved `.isbd` message
 
 ```bash
@@ -430,6 +481,7 @@ Before sharing with an external agency, provide:
 - OS/runtime environment.
 - DirectIP host/port/firewall details.
 - Runtime data directory path.
+- Station/SatLink transmit mapping confirmation against the expected pseudobinary-C sensor order.
 - Whether the agency should run raw listener only or listener plus postprocessing.
 - A safe sample `.isbd` file, if available.
 - A safe sample extracted payload and decoded CSV, if available.
