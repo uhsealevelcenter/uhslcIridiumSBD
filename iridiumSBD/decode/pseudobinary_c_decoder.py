@@ -159,10 +159,7 @@ class PseudobinaryCDecoder:
                 measurement = self.sixbit_to_decimal(measurements_str[i:i+3])
 
                 # Scale the measurement depending on the sensor.
-                if sensor in ['PRS', 'RAD', 'RA2', 'RA3', 'RAS', 'ENC', 'BUB', 'PR2', 'TST', 'TS2', 'TS3']:
-                    # Convert mm to m.
-                    measurement /= 1000
-                elif sensor == 'BAT':
+                if sensor == 'BAT':
                     # Convert to volts.
                     measurement /= 10
                 elif sensor in ['ATM', 'AT2']:
